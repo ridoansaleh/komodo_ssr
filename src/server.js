@@ -1,19 +1,10 @@
-// import express from 'express';
-
-// const render = require('../dist/assets/ssr');
-// const app = express();
-
-// app.get('/', render.default);
-
-// const port = 3000;
-// app.listen(port);
-// console.log(`Listening on port ${port}`);
-
 import express from 'express';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.client';
 
+const PORT = 3000;
 const render = require('../dist/assets/ssr');
+
 const app = express();
 
 const compiler = webpack(webpackConfig);
@@ -25,6 +16,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.get('/', render.default);
 
-const port = 3000;
-app.listen(port);
-console.log(`Listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Your app running on http://localhost:${PORT}`);
+});
