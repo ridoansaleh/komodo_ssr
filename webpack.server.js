@@ -2,15 +2,14 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const { publicPath, assetsPath, commonLoaders } = require('./common.config');
 
-
 module.exports = {
   mode: 'development',
   name: 'SSR',
   context: path.join(__dirname, 'src'),
-  entry: './ssr.js',  
+  entry: './server.js',  
   output: {
     path: assetsPath,
-    filename: 'ssr.js',
+    filename: 'server.js',
     libraryTarget: 'commonjs2',
     publicPath,
   },

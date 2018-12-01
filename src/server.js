@@ -1,21 +1,40 @@
-import express from 'express';
-import webpack from 'webpack';
-import webpackConfig from '../webpack.client';
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+import { StaticRouter } from 'react-router-dom';
+import App from './components/App';
 
-const PORT = 3000;
-const render = require('../dist/assets/ssr');
+const render = (req, res) => {
+  const context = {};
+  
+  const html = ReactDOMServer.renderToString(
+    <StaticRouter
+      context={context}
+      location={req.url}
+    >
+      <App/>
+    </StaticRouter>
+  );
+  
+  if (context.url) {
+    res.writeHead(301, {
+      Location: context.url
+    });
+    res.end();
+  } else {
+    res.writeHead(200, {"Content-Type": "text/html"});
+    res.end(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>React SSR Template</title>
+        </head>          
+        <body>
+          <div id="root">${html}</div>
+          <script src="/assets/bundle.js"></script>
+        </body>
+      </html>
+    `);
+  }
+}
 
-const app = express();
-
-const compiler = webpack(webpackConfig);
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: webpackConfig.output.publicPath,
-}));
-
-app.get('/', render.default);
-
-app.listen(PORT, () => {
-  console.log(`Your app running on http://localhost:${PORT}`);
-});
+export default render;
