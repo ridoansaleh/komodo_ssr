@@ -4,6 +4,7 @@
 
 Here is our folder structure for the React SSR project template 
 
+```
 -codeburst-ssr
  |_src/
  |   |_components
@@ -23,3 +24,4 @@ Here is our folder structure for the React SSR project template
  |_webpack.server.js
  |_webpack.client.js
  |_yarn.lock
+ ```
