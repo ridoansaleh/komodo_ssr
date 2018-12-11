@@ -1,9 +1,9 @@
 import express from 'express';
 import webpack from 'webpack';
-import webpackConfig from '../webpack.client';
+import webpackConfig from '../config/webpack.client';
 
 const PORT = 3000;
-const render = require('../dist/assets/server');
+const render = require('../dist/server');
 
 const app = express();
 

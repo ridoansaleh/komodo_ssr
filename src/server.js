@@ -30,7 +30,7 @@ const render = (req, res) => {
         </head>          
         <body>
           <div id="root">${html}</div>
-          <script src="/assets/bundle.js"></script>
+          <script src="/bundle.js"></script>
         </body>
       </html>
     `);

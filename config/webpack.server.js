@@ -1,22 +1,17 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const { publicPath, assetsPath, commonLoaders } = require('./common.config');
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common');
 
-module.exports = {
+const serverConfig = {
   mode: 'development',
-  name: 'SSR',
-  context: path.join(__dirname, 'src'),
-  entry: './server.js',  
-  output: {
-    path: assetsPath,
-    filename: 'server.js',
-    libraryTarget: 'commonjs2',
-    publicPath,
-  },
+  name: 'server',
   target: 'node',
-  externals: nodeExternals(),  
+  externals: nodeExternals(),
+  context: path.join(__dirname, '..', 'src'),
+  entry: './server.js',
   module: {
-    rules: commonLoaders.concat([
+    rules: [
       {
         test: /\.css$/,
         use: 'css-loader/locals?modules&localIdentName=[name]__[local]___[hash:base64:5]'
@@ -32,6 +27,14 @@ module.exports = {
           }
         ]
       } 
-    ]),
+    ],
+  },
+  output: {
+    path: path.join(__dirname, '..', 'dist'),
+    filename: 'server.js',
+    libraryTarget: 'commonjs2',
+    publicPath: '/',
   }
 };
+
+module.exports = merge(commonConfig, serverConfig);
