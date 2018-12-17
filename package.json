@@ -8,9 +8,13 @@
     "start": "yarn build:dev && babel-node -- src/index.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "webpack-dev-middleware": "^3.4.0"
   },
   "devDependencies": {
@@ -21,6 +25,7 @@
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.1",
     "file-loader": "^2.0.0",
+    "mini-css-extract-plugin": "^0.5.0",
     "react-router-dom": "^4.3.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.26.1",
