@@ -14,7 +14,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
 }));
 
-app.get('/', render.default);
+app.get('*', render.default);
 
 app.listen(PORT, () => {
   console.log(`Your app is running on http://localhost:${PORT}`);

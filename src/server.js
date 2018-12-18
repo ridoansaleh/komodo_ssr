@@ -13,8 +13,6 @@ const render = (req, res) => {
 
   routes.some(route => {
     const match = matchPath(req.path, route);
-    console.log('match : ', match);
-    console.log('route : ', route);
     if (match && route.loadData) {
       const getData = store.dispatch(route.loadData());
       promises.push(getData);
@@ -24,10 +22,6 @@ const render = (req, res) => {
 
   Promise.all(promises).then(resp => {
     const data = store.getState();
-
-    console.log('1. Response Of Promise : ', resp);
-    console.log('2. promises : ', promises);
-    console.log('3. Data : ', data);
 
     const AppComponent = renderToString(
       <Provider store={store}>

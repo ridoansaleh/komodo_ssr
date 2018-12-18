@@ -17,9 +17,10 @@ const fetchSucceed = (res) => {
     }
 }
 
-const fetchFailed = () => {
+const fetchFailed = (err) => {
     return {
-        type: FETCH_PEOPLE_FAILED
+        type: FETCH_PEOPLE_FAILED,
+        error: err
     }
 }
 
@@ -28,12 +29,10 @@ const fetchPeople = () => {
         dispatch(fetchStart())
         return axios.get('https://swapi.co/api/people')
             .then(res => {
-                console.info('Res : ', res);
                 dispatch(fetchSucceed(res.data.results));
             })
             .catch(err => {
-                dispatch(fetchFailed())
-                console.error('Error ', err);
+                dispatch(fetchFailed(err))
             })
     }
 }
@@ -42,7 +41,8 @@ let initialState = {
     isFetching: false,
     isSucceed: false,
     isFailed: false,
-    data: null
+    data: null,
+    error: null
 }
 
 const peopleReducer = (state = initialState, action) => {
@@ -61,7 +61,8 @@ const peopleReducer = (state = initialState, action) => {
         case FETCH_PEOPLE_FAILED:
             return {
                 ...state,
-                isFailed: true
+                isFailed: true,
+                error: action.error
             };
         default:
             return state;
