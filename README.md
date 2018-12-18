@@ -6,11 +6,16 @@ Here is our folder structure for the React SSR project template
 
 ```
 -codeburst-ssr
+ |_config/
+ |   |_webpack.common.js
+ |   |_webpack.client.js
+ |   |_webpack.server.js
  |_src/
  |   |_components
  |   |_containers
  |   |_css
  |   |_reducers
+ |   |_static
  |   |_routes.js
  |   |_server.js
  |   |_client.js
@@ -18,10 +23,6 @@ Here is our folder structure for the React SSR project template
  |_.babelrc
  |_.gitignore
  |_package.json
- |_config.js
- |_README.md
- |_webpack.common.js
- |_webpack.server.js
- |_webpack.client.js
  |_yarn.lock
  ```
+ 
