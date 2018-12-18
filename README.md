@@ -25,9 +25,4 @@ Here is our folder structure for the React SSR project template
  |_package.json
  |_yarn.lock
  ```
-
-Plan
-1. Separate Index HTML from render func
-   Maybe usefull for css injection
-
-2. Server routing
+ 
