@@ -4,8 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build:dev": "webpack --config ./config/webpack.server.js",
-    "start": "yarn build:dev && babel-node -- src/index.js"
+    "build:devClient": "webpack --config ./config/dev/webpack.server.js",
+    "build:devServer": "webpack --config ./config/dev/webpack.client.js",
+    "start:devServer": "babel-node -- ./dist/serverDev.js",
+    "start:dev": "npm-run-all build:devServer build:devClient start:devServer",
+    "build:prodClient": "webpack --config ./config/prod/webpack.server.js",
+    "build:prodServer": "webpack --config ./config/prod/webpack.client.js",
+    "start:prodServer": "babel-node -- ./dist/serverProd.js",
+    "start:prod": "npm-run-all build:prodServer build:prodClient start:prodServer"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -14,8 +20,7 @@
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "webpack-dev-middleware": "^3.4.0"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
@@ -23,9 +28,11 @@
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
     "file-loader": "^2.0.0",
     "mini-css-extract-plugin": "^0.5.0",
+    "npm-run-all": "^4.1.5",
     "react-router-dom": "^4.3.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.26.1",
