@@ -18,14 +18,12 @@ Ini adalah struktur folder projek Komodo SSR
  |   |   |_webpack.server.js
  |_src/
  |   |_components
- |   |_containers
  |   |_css
  |   |_reducers
  |   |_static
  |   |_routes.js
- |   |_server.js
- |   |_client.js
- |   |_index.js
+ |   |_appServer.js
+ |   |_appClient.js
  |_.babelrc
  |_.gitignore
  |_package.json
