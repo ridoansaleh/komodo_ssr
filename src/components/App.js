@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { setConfig } from 'react-hot-loader';
 import routes from '../routes';
 
-class App extends Component {
-  render() {
-    return (
-      <Switch>
-          {
-            routes.map(route => 
-              <Route
-                key={route.path}
-                { ...route }
-              />
-            )
-          }
-      </Switch>
-    );
-  }
-}
+setConfig({ logLevel: 'debug' })
+
+const App = () => (
+  <Switch>
+    {
+      routes.map(route => 
+        <Route
+          key={route.path}
+          { ...route }
+        />
+      )
+    }
+  </Switch>
+);
 
 export default App

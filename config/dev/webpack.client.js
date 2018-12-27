@@ -1,22 +1,26 @@
 const path = require('path');
+const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
 const commonConfig = require('../webpack.common');
 
 const clientConfig = {
   mode: 'development',
   name: 'client',
-  context: path.join(__dirname, '..', '..', 'src'),  
-  entry: './appClient.js',
   devtool: 'inline-source-map',
+  target: 'web',
+  context: path.join(__dirname, '..', '..', 'src'),  
+  entry: [
+    './appClient.js',
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://localhost:3001',
+  ],
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          'style-loader',
           'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]',
         ],
       },
@@ -24,10 +28,7 @@ const clientConfig = {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/'
-            }
+            loader: 'file-loader'
           }
         ]
       }
@@ -35,21 +36,24 @@ const clientConfig = {
   },
   plugins: [
     new WriteFilePlugin(),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: path.join(__dirname, '..', '..') + '/src/static/serverDev.js',
-        to: path.join(__dirname, '..', '..') + '/dist/serverDev.js',
-        toType: 'file'
+    new webpack.DefinePlugin({
+      "process.env": {
+          "DEV": JSON.stringify("true")
       }
-    ])
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
+  devServer: {
+    host: 'localhost',
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    port: 3001,
+    hot: true
+  },
   output: {
     path: path.join(__dirname, '..', '..', 'dist'),
-    publicPath: '/',
+    publicPath: 'http://localhost:3001/',
     filename: 'bundle.js',
   }
 };

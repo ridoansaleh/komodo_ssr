@@ -41,7 +41,7 @@ const clientConfig = {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, '..', '..') + '/src/static/serverProd.js',
+        from: path.join(__dirname, '..', '..') + '/src/server/production.js',
         to: path.join(__dirname, '..', '..') + '/dist/serverProd.js',
         toType: 'file'
       }

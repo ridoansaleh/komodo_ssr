@@ -34,19 +34,22 @@ const render = (req, res) => {
       </Provider>
     );
 
+    const style = process.env.DEV ? null : "/main.css"
+    const bundle = process.env.DEV ? 'http://localhost:3001/bundle.js' : '/bundle.js'
+
     const indexHTML = `
       <!DOCTYPE html>
       <html>
         <head>
           <title>React SSR Template</title>
-          <link rel="stylesheet" type="text/css" href="/main.css"/>
+          <link rel="stylesheet" type="text/css" href=${style}/>
         </head>          
         <body>
           <div id="root">${AppComponent}</div>
           <script>
             window.REDUX_DATA = ${JSON.stringify(data)}
           </script>
-          <script src="/bundle.js"></script>
+          <script src=${bundle}></script>
         </body>
       </html>
     `;

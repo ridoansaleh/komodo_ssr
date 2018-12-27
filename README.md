@@ -22,10 +22,10 @@ Ini adalah struktur folder projek Komodo SSR
  |   |_css
  |   |_reducers
  |   |_static
+ |   |_server
+ |   |_appServer.js
+ |   |_appClient.js
  |   |_routes.js
- |   |_server.js
- |   |_client.js
- |   |_index.js
  |_.babelrc
  |_.gitignore
  |_package.json
@@ -39,6 +39,7 @@ Ini adalah struktur folder projek Komodo SSR
 3. Server Side Rendering
 4. Read CSS
 5. Read Image
+6. Hot Module Replacement (HMR)
 
 ## Teknologi
 
