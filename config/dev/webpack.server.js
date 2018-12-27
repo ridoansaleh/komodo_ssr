@@ -1,16 +1,24 @@
 const path = require('path');
+const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
+const StartServerPlugin = require('start-server-webpack-plugin');
 const commonConfig = require('../webpack.common');
 
 const serverConfig = {
   mode: 'development',
   name: 'server',
   target: 'node',
-  externals: nodeExternals(),
-  context: path.join(__dirname, '..', '..', 'src'),
-  entry: './appServer.js',
+  watch: true,
   devtool: 'inline-source-map',
+  externals: nodeExternals({
+    whitelist: ['webpack/hot/poll?1000']
+  }),
+  context: path.join(__dirname, '..', '..', 'src'),
+  entry: [
+    'webpack/hot/poll?1000',
+    './server'
+  ],
   module: {
     rules: [
       {
@@ -30,11 +38,20 @@ const serverConfig = {
       } 
     ],
   },
+  plugins: [
+    new StartServerPlugin('server.js'),
+    new webpack.DefinePlugin({
+      "process.env": {
+          "DEV": JSON.stringify("true")
+      }
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ],
   output: {
     path: path.join(__dirname, '..', '..', 'dist'),
     filename: 'server.js',
     libraryTarget: 'commonjs2',
-    publicPath: '/',
+    publicPath: 'http://localhost:3001/'
   }
 };
 
