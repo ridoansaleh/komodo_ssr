@@ -10,7 +10,7 @@
     "build:prodServer": "webpack --config ./config/prod/webpack.server.js",
     "build:prodClient": "webpack --config ./config/prod/webpack.client.js",
     "start:prodServer": "node ./build/index.js",
-    "start:prod": "npm-run-all build:prodServer build:prodClient start:prodServer"
+    "start": "npm-run-all build:prodServer build:prodClient start:prodServer"
   },
   "dependencies": {
     "axios": "^0.18.0",
