@@ -42,13 +42,13 @@ const clientConfig = {
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, '..', '..') + '/src/server/production.js',
-        to: path.join(__dirname, '..', '..') + '/dist/serverProd.js',
+        to: path.join(__dirname, '..', '..') + '/build/index.js',
         toType: 'file'
       }
     ])
   ],
   output: {
-    path: path.join(__dirname, '..', '..', 'dist'),
+    path: path.join(__dirname, '..', '..', 'build'),
     publicPath: '/',
     filename: 'bundle.js',
   }

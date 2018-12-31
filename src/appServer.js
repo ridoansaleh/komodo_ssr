@@ -34,7 +34,7 @@ const render = (req, res) => {
       </Provider>
     );
 
-    const style = process.env.DEV ? null : "/main.css"
+    const style = process.env.DEV ? null : '/main.css'
     const bundle = process.env.DEV ? 'http://localhost:3001/bundle.js' : '/bundle.js'
 
     const indexHTML = `
@@ -42,7 +42,7 @@ const render = (req, res) => {
       <html>
         <head>
           <title>React SSR Template</title>
-          <link rel="stylesheet" type="text/css" href=${style}/>
+          <link rel="stylesheet" type="text/css" href=${style}></link>
         </head>          
         <body>
           <div id="root">${AppComponent}</div>
