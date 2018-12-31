@@ -1,5 +1,5 @@
 {
-  "name": "codeburst-ssr",
+  "name": "komodo-ssr",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,8 +9,8 @@
     "start:dev": "npm-run-all --parallel build:devServer build:devClient",
     "build:prodServer": "webpack --config ./config/prod/webpack.server.js",
     "build:prodClient": "webpack --config ./config/prod/webpack.client.js",
-    "start:prodServer": "node ./build/index.js",
-    "start": "npm-run-all build:prodServer build:prodClient start:prodServer"
+    "build:deploy": "npm-run-all build:prodServer build:prodClient",
+    "start": "node ./build/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
