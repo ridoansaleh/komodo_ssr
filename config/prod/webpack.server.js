@@ -31,7 +31,7 @@ const serverConfig = {
     ],
   },
   output: {
-    path: path.join(__dirname, '..', '..', 'dist'),
+    path: path.join(__dirname, '..', '..', 'build'),
     filename: 'server.js',
     libraryTarget: 'commonjs2',
     publicPath: '/',

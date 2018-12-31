@@ -52,7 +52,7 @@ const clientConfig = {
     hot: true
   },
   output: {
-    path: path.join(__dirname, '..', '..', 'dist'),
+    path: path.join(__dirname, '..', '..', 'build'),
     publicPath: 'http://localhost:3001/',
     filename: 'bundle.js',
   }
