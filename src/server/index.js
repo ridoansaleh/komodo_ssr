@@ -1,10 +1,15 @@
-import http from 'http'
-import app from './development'
+import http from 'http';
+import React from 'react';
+import Loadable from 'react-loadable';
+import app from './development';
 
 const server = http.createServer(app)
 let currentApp = app
-server.listen(3000, () => {
-    console.info('Your app is running on http://localhost:3000');
+
+Loadable.preloadAll().then(() => {
+    server.listen(3000, () => {
+        console.info('Your app is running on http://localhost:3000');
+    });
 });
 
 if (module.hot) {

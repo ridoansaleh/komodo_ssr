@@ -1,6 +1,24 @@
-import Home from './components/Home';
-import About from './components/About';
-import NotFound from './components/NotFound';
+import React from 'react';
+import Loadable from 'react-loadable';
+
+const Home = Loadable({
+    loader: () => import('./components/Home'),
+    loading() {
+        return <div>Loading...</div>
+    }
+});
+const About = Loadable({
+    loader: () => import('./components/About'),
+    loading() {
+        return <div>Loading...</div>
+    }
+});
+const NotFound = Loadable({
+    loader: () => import('./components/NotFound'),
+    loading() {
+        return <div>Loading...</div>
+    }
+});
 import { fetchPeople } from './reducers/people';
 
 const routes = [
