@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const merge = require('webpack-merge');
-// const React = require('react');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const commonConfig = require('../webpack.common');
 

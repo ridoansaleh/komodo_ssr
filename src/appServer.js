@@ -40,9 +40,6 @@ const render = (req, res) => {
       </Provider>
     );
 
-    console.log("Modules : ",modules);
-
-
     let bundles = getBundles(stats, modules);
     const publicPath = process.env.DEV ? 'http://localhost:3001/' : '/'
     const styles = process.env.DEV ? '' : '<link rel="stylesheet" type="text/css" href="/main.csss"></link>'
