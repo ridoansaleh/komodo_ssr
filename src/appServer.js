@@ -2,6 +2,9 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from "react-redux";
+import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable/webpack';
+import stats from '../build/react-loadable.json';
 import App from './components/App';
 import routes from './routes';
 import createStore from './reducers/store';
@@ -22,6 +25,7 @@ const render = (req, res) => {
 
   Promise.all(promises).then(resp => {
     const data = store.getState();
+    let modules = [];
 
     const AppComponent = renderToString(
       <Provider store={store}>
@@ -29,27 +33,39 @@ const render = (req, res) => {
           context={context}
           location={req.url}
         >
-          <App />
+          <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+            <App />
+          </Loadable.Capture>
         </StaticRouter>
       </Provider>
     );
 
-    const style = process.env.DEV ? null : '/main.css'
-    const bundle = process.env.DEV ? 'http://localhost:3001/bundle.js' : '/bundle.js'
+    console.log("Modules : ",modules);
+
+
+    let bundles = getBundles(stats, modules);
+    const publicPath = process.env.DEV ? 'http://localhost:3001/' : '/'
+    const styles = process.env.DEV ? '' : '<link rel="stylesheet" type="text/css" href="/main.csss"></link>'
+    const vendorBundle = publicPath + 'vendor.bundle.js'
+    const appBundle = publicPath + 'bundle.js'
 
     const indexHTML = `
       <!DOCTYPE html>
       <html>
         <head>
-          <title>React SSR Template</title>
-          <link rel="stylesheet" type="text/css" href=${style}></link>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <title>Komodo SSR</title>
+          ${styles}
         </head>          
         <body>
           <div id="root">${AppComponent}</div>
-          <script>
-            window.REDUX_DATA = ${JSON.stringify(data)}
-          </script>
-          <script src=${bundle}></script>
+          ${bundles.map(bundle => {
+            return `<script src="${publicPath}${bundle.file}"></script>`
+          }).join('\n')}
+          <script src=${vendorBundle}></script>
+          <script src=${appBundle}></script>
+          <script> window.REDUX_DATA = ${JSON.stringify(data)} </script>
         </body>
       </html>
     `;

@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const merge = require('webpack-merge');
+// const React = require('react');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const commonConfig = require('../webpack.common');
 
 const clientConfig = {
@@ -35,6 +37,9 @@ const clientConfig = {
     ],
   },
   plugins: [
+    new ReactLoadablePlugin({
+      filename: './build/react-loadable.json'
+    }),
     new WriteFilePlugin(),
     new webpack.DefinePlugin({
       "process.env": {
@@ -43,6 +48,17 @@ const clientConfig = {
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor",
+          chunks: "initial",
+        },
+      },
+    },
+  },
   devServer: {
     host: 'localhost',
     headers: {
