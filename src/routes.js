@@ -1,23 +1,6 @@
-import Loadable from 'react-loadable';
-
-const Home = Loadable({
-    loader: () => import('./components/Home' /* webpackChunkName: 'Home' */),
-    loading() {
-        return <div>Loading...</div>
-    }
-});
-const About = Loadable({
-    loader: () => import('./components/About' /* webpackChunkName: 'About' */),
-    loading() {
-        return <div>Loading...</div>
-    }
-});
-const NotFound = Loadable({
-    loader: () => import('./components/NotFound' /* webpackChunkName: 'NotFound' */),
-    loading() {
-        return <div>Loading...</div>
-    }
-});
+import Home from './pages/home';
+import About from './pages/about';
+import NotFound from './pages/not_found';
 import { fetchPeople } from './reducers/people';
 
 const routes = [

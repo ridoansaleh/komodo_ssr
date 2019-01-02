@@ -33,7 +33,7 @@ const clientConfig = {
           }
         ]
       }
-    ],
+    ]
   },
   plugins: [
     new ReactLoadablePlugin({
