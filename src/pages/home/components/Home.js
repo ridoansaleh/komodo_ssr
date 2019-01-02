@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../css/App.css';
-import minion from '../static/minion.gif';
+import styles from '../../../general/css/App.css';
+import minion from '../../../static/minion.gif';
 
 class Home extends Component {
   render() {

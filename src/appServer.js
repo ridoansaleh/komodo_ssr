@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import stats from '../build/react-loadable.json';
-import App from './components/App';
+import App from './general/components/App';
 import routes from './routes';
 import createStore from './reducers/store';
 

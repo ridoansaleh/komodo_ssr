@@ -1,5 +1,5 @@
 const express = require('express');
-const render = require('../appServer');
+const render = require('../src/appServer');
 
 const app = express();
 app.get('*', render.default);

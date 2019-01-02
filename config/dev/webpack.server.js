@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack')
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const StartServerPlugin = require('start-server-webpack-plugin');
@@ -17,7 +17,7 @@ const serverConfig = {
   context: path.join(__dirname, '..', '..', 'src'),
   entry: [
     'webpack/hot/poll?1000',
-    './server'
+    '../server'
   ],
   module: {
     rules: [
@@ -36,7 +36,7 @@ const serverConfig = {
           }
         ]
       } 
-    ],
+    ]
   },
   plugins: [
     new StartServerPlugin('server.js'),

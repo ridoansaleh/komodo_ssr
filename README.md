@@ -2,6 +2,13 @@
 
 > Komodo SSR adalah sebuah template projek untuk para programmer yang ingin menerapkan fitur Server Side Rendering pada React.Js.
 
+## Mulai
+
+- Klon atau download projek ini
+- Install dependensi
+- Ketikkan command `yarn start:dev`
+- Buka browser `http://localhost:3000`
+
 ## Struktur Folder
 
 Ini adalah struktur folder projek Komodo SSR 
@@ -16,12 +23,16 @@ Ini adalah struktur folder projek Komodo SSR
  |   |_prod/
  |   |   |_webpack.client.js
  |   |   |_webpack.server.js
+ |_server/
+ |   |_development.js
+ |   |_production.js
+ |   |_index.js
  |_src/
- |   |_components
- |   |_css
+ |   |_general
+ |   |   |_components
+ |   |   |_css
  |   |_reducers
  |   |_static
- |   |_server
  |   |_appServer.js
  |   |_appClient.js
  |   |_routes.js
@@ -39,6 +50,8 @@ Ini adalah struktur folder projek Komodo SSR
 4. Read CSS
 5. Read Image
 6. Hot Module Replacement (HMR)
+7. Bundle Splitting
+8. Code Splitting
 
 ## Teknologi
 
