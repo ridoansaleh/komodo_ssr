@@ -4,11 +4,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
 const commonConfig = require('../webpack.common');
+const paths = require('../paths');
 
 const clientConfig = {
   mode: 'production',
   name: 'client',
-  context: path.join(__dirname, '..', '..', 'src'),  
+  context: paths.context,  
   entry: './appClient.js',
   devtool: 'source-map',
   module: {
@@ -26,7 +27,7 @@ const clientConfig = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: '/'
+              publicPath: paths.public
             }
           }
         ]
@@ -47,9 +48,20 @@ const clientConfig = {
       }
     ])
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor",
+          chunks: "initial",
+        },
+      },
+    },
+  },
   output: {
-    path: path.join(__dirname, '..', '..', 'build'),
-    publicPath: '/',
+    path: paths.build,
+    publicPath: paths.public,
     filename: 'bundle.js'
   }
 };

@@ -1,16 +1,16 @@
-const path = require('path');
 const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const merge = require('webpack-merge');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const commonConfig = require('../webpack.common');
+const paths = require('../paths');
 
 const clientConfig = {
   mode: 'development',
   name: 'client',
   devtool: 'inline-source-map',
   target: 'web',
-  context: path.join(__dirname, '..', '..', 'src'),  
+  context: paths.context,  
   entry: [
     './appClient.js',
     'webpack/hot/dev-server',
@@ -36,16 +36,16 @@ const clientConfig = {
     ]
   },
   plugins: [
-    new ReactLoadablePlugin({
-      filename: './build/react-loadable.json'
-    }),
     new WriteFilePlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
           "DEV": JSON.stringify("true")
       }
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new ReactLoadablePlugin({
+      filename: './build/react-loadable.json'
+    })
   ],
   optimization: {
     splitChunks: {
@@ -67,8 +67,8 @@ const clientConfig = {
     hot: true
   },
   output: {
-    path: path.join(__dirname, '..', '..', 'build'),
-    publicPath: 'http://localhost:3001/',
+    path: paths.build,
+    publicPath: paths.public,
     filename: 'bundle.js',
   }
 };

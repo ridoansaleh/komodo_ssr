@@ -1,9 +1,9 @@
-const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const StartServerPlugin = require('start-server-webpack-plugin');
 const commonConfig = require('../webpack.common');
+const paths = require('../paths');
 
 const serverConfig = {
   mode: 'development',
@@ -14,7 +14,7 @@ const serverConfig = {
   externals: nodeExternals({
     whitelist: ['webpack/hot/poll?1000']
   }),
-  context: path.join(__dirname, '..', '..', 'src'),
+  context: paths.context,
   entry: [
     'webpack/hot/poll?1000',
     '../server'
@@ -48,10 +48,10 @@ const serverConfig = {
     new webpack.HotModuleReplacementPlugin()
   ],
   output: {
-    path: path.join(__dirname, '..', '..', 'build'),
+    path: paths.build,
     filename: 'server.js',
     libraryTarget: 'commonjs2',
-    publicPath: 'http://localhost:3001/'
+    publicPath: paths.public
   }
 };
 
