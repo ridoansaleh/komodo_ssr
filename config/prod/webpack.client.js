@@ -3,12 +3,14 @@ const WriteFilePlugin = require('write-file-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const commonConfig = require('../webpack.common');
+const paths = require('../paths');
 
 const clientConfig = {
   mode: 'production',
   name: 'client',
-  context: path.join(__dirname, '..', '..', 'src'),  
+  context: paths.context,  
   entry: './appClient.js',
   devtool: 'source-map',
   module: {
@@ -26,7 +28,7 @@ const clientConfig = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: '/'
+              publicPath: paths.public
             }
           }
         ]
@@ -35,6 +37,9 @@ const clientConfig = {
   },
   plugins: [
     new WriteFilePlugin(),
+    new ReactLoadablePlugin({
+      filename: './build/react-loadable.json'
+    }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
@@ -47,10 +52,28 @@ const clientConfig = {
       }
     ])
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   output: {
-    path: path.join(__dirname, '..', '..', 'build'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    path: paths.build,
+    publicPath: paths.public,
+    filename: '[name].js',
+    chunkFilename: '[name].bundle.js'
   }
 };
 

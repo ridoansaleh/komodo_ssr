@@ -2,13 +2,14 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const commonConfig = require('../webpack.common');
+const paths = require('../paths');
 
 const serverConfig = {
   mode: 'production',
   name: 'server',
   target: 'node',
   externals: nodeExternals(),
-  context: path.join(__dirname, '..', '..', 'src'),
+  context: paths.context,
   entry: './appServer.js',
   devtool: 'source-map',
   module: {
@@ -28,13 +29,13 @@ const serverConfig = {
           }
         ]
       } 
-    ],
+    ]
   },
   output: {
-    path: path.join(__dirname, '..', '..', 'build'),
+    path: paths.build,
     filename: 'server.js',
     libraryTarget: 'commonjs2',
-    publicPath: '/',
+    publicPath: paths.public
   }
 };
 

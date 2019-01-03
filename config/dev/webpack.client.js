@@ -1,20 +1,20 @@
-const path = require('path');
 const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const merge = require('webpack-merge');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const commonConfig = require('../webpack.common');
+const paths = require('../paths');
 
 const clientConfig = {
   mode: 'development',
   name: 'client',
   devtool: 'inline-source-map',
   target: 'web',
-  context: path.join(__dirname, '..', '..', 'src'),  
+  context: paths.context,  
   entry: [
     './appClient.js',
     'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:3001',
+    'webpack-dev-server/client?http://localhost:3001'
   ],
   module: {
     rules: [
@@ -22,8 +22,8 @@ const clientConfig = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]',
-        ],
+          'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]'
+        ]
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -36,27 +36,28 @@ const clientConfig = {
     ]
   },
   plugins: [
+    new WriteFilePlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new ReactLoadablePlugin({
       filename: './build/react-loadable.json'
-    }),
-    new WriteFilePlugin(),
-    new webpack.DefinePlugin({
-      "process.env": {
-          "DEV": JSON.stringify("true")
-      }
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
   ],
   optimization: {
     splitChunks: {
+      chunks: "all",
       cacheGroups: {
-        commons: {
+        vendors: {
           test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "initial",
+          name: 'vendor',
+          priority: -10
         },
-      },
-    },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
   },
   devServer: {
     host: 'localhost',
@@ -67,9 +68,10 @@ const clientConfig = {
     hot: true
   },
   output: {
-    path: path.join(__dirname, '..', '..', 'build'),
-    publicPath: 'http://localhost:3001/',
-    filename: 'bundle.js',
+    path: paths.build,
+    publicPath: paths.public,
+    filename: '[name].js',
+    chunkFilename: '[name].bundle.js'
   }
 };
 
