@@ -29,7 +29,7 @@ const serverConfig = {
           }
         ]
       } 
-    ],
+    ]
   },
   output: {
     path: paths.build,

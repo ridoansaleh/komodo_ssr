@@ -14,7 +14,7 @@ const clientConfig = {
   entry: [
     './appClient.js',
     'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:3001',
+    'webpack-dev-server/client?http://localhost:3001'
   ],
   module: {
     rules: [
@@ -22,8 +22,8 @@ const clientConfig = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]',
-        ],
+          'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]'
+        ]
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -38,25 +38,26 @@ const clientConfig = {
   plugins: [
     new WriteFilePlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      "process.env": {
-          "DEV": JSON.stringify("true")
-      }
-    }),
     new ReactLoadablePlugin({
       filename: './build/react-loadable.json'
     })
   ],
   optimization: {
     splitChunks: {
+      chunks: "all",
       cacheGroups: {
-        commons: {
+        vendors: {
           test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "initial",
+          name: 'vendor',
+          priority: -10
         },
-      },
-    },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
   },
   devServer: {
     host: 'localhost',
@@ -69,7 +70,8 @@ const clientConfig = {
   output: {
     path: paths.build,
     publicPath: paths.public,
-    filename: 'bundle.js',
+    filename: '[name].js',
+    chunkFilename: '[name].bundle.js'
   }
 };
 

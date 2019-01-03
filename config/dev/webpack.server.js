@@ -40,11 +40,6 @@ const serverConfig = {
   },
   plugins: [
     new StartServerPlugin('server.js'),
-    new webpack.DefinePlugin({
-      "process.env": {
-          "DEV": JSON.stringify("true")
-      }
-    }),
     new webpack.HotModuleReplacementPlugin()
   ],
   output: {

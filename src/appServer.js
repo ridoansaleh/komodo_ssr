@@ -8,6 +8,7 @@ import stats from '../build/react-loadable.json';
 import App from './general/components/App';
 import routes from './routes';
 import createStore from './reducers/store';
+import paths from '../config/paths';
 
 const render = (req, res) => {
   const context = {};
@@ -25,6 +26,7 @@ const render = (req, res) => {
 
   Promise.all(promises).then(resp => {
     const data = store.getState();
+    const dev = process.env.NODE_ENV === 'development';
     let modules = [];
 
     const AppComponent = renderToString(
@@ -41,10 +43,11 @@ const render = (req, res) => {
     );
 
     let bundles = getBundles(stats, modules);
-    const publicPath = process.env.DEV ? 'http://localhost:3001/' : '/'
-    const styles = process.env.DEV ? '' : '<link rel="stylesheet" type="text/css" href="/main.csss"></link>'
-    const vendorBundle = publicPath + 'vendor.bundle.js'
-    const appBundle = publicPath + 'bundle.js'
+    const vendorBundle = paths.public + 'vendor.bundle.js';
+    const appBundle = paths.public + 'main.js';
+
+    let styles = bundles.filter(bundle => bundle.file.endsWith('.css'));
+    let scripts = bundles.filter(bundle => bundle.file.endsWith('.js'));
 
     const indexHTML = `
       <!DOCTYPE html>
@@ -53,13 +56,19 @@ const render = (req, res) => {
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
           <title>Komodo SSR</title>
-          ${styles}
+          ${
+            !dev && styles.map(style => {
+              return `<link href="${style.file}" rel="stylesheet"/>`
+            }).join('\n')
+          }
         </head>          
         <body>
           <div id="root">${AppComponent}</div>
-          ${bundles.map(bundle => {
-            return `<script src="${publicPath}${bundle.file}"></script>`
-          }).join('\n')}
+          ${
+            scripts.map(script => {
+              return `<script src="${paths.public}${script.file}"></script>`
+            }).join('\n')
+          }
           <script src=${vendorBundle}></script>
           <script src=${appBundle}></script>
           <script> window.REDUX_DATA = ${JSON.stringify(data)} </script>
