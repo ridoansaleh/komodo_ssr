@@ -46,7 +46,7 @@ const render = (req, res) => {
     const vendorBundle = paths.public + 'vendor.bundle.js';
     const appBundle = paths.public + 'main.js';
     const styles = bundles.filter(bundle => bundle.file.endsWith('.css'));
-    const appStyle = !dev ? styles.map(style => <link href={style.file} rel="stylesheet"/>).join('\n') : '';
+    const appStyle = !dev ? styles.map(style => `<link href=${style.file} rel="stylesheet"/>`).join('\n') : '';
     const scripts = bundles.filter(bundle => bundle.file.endsWith('.js'));
 
     const indexHTML = `
