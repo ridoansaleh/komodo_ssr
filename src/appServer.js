@@ -42,12 +42,12 @@ const render = (req, res) => {
       </Provider>
     );
 
-    let bundles = getBundles(stats, modules);
+    const bundles = getBundles(stats, modules);
     const vendorBundle = paths.public + 'vendor.bundle.js';
     const appBundle = paths.public + 'main.js';
-
-    let styles = bundles.filter(bundle => bundle.file.endsWith('.css'));
-    let scripts = bundles.filter(bundle => bundle.file.endsWith('.js'));
+    const styles = bundles.filter(bundle => bundle.file.endsWith('.css'));
+    const appStyle = !dev ? styles.map(style => <link href={style.file} rel="stylesheet"/>).join('\n') : '';
+    const scripts = bundles.filter(bundle => bundle.file.endsWith('.js'));
 
     const indexHTML = `
       <!DOCTYPE html>
@@ -56,11 +56,7 @@ const render = (req, res) => {
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
           <title>Komodo SSR</title>
-          ${
-            !dev && styles.map(style => {
-              return `<link href="${style.file}" rel="stylesheet"/>`
-            }).join('\n')
-          }
+          ${appStyle}
         </head>          
         <body>
           <div id="root">${AppComponent}</div>
