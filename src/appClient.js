@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
-import { AppContainer } from "react-hot-loader";
 import Loadable from 'react-loadable';
 import App from './general/components/App';
 import createStore from './reducers/store';
@@ -14,9 +13,7 @@ const render = Component => (
         ReactDOM.hydrate(
             <Provider store={store}>
                 <BrowserRouter>
-                    <AppContainer>
-                        <Component />
-                    </AppContainer>
+                    <Component />
                 </BrowserRouter>
             </Provider>,
             document.getElementById('root')
@@ -26,8 +23,3 @@ const render = Component => (
 
 render(App)
 
-if (module.hot) {
-    module.hot.accept('./general/components/App', () => {
-        render(App);
-    });
-}

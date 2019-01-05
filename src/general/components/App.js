@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { setConfig } from 'react-hot-loader';
+import { hot, setConfig } from 'react-hot-loader';
 import routes from '../../routes';
 
 setConfig({ logLevel: 'debug' })
@@ -18,4 +18,4 @@ const App = () => (
   </Switch>
 );
 
-export default App
+export default hot(module)(App)

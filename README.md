@@ -9,6 +9,12 @@
 - Ketikkan command `yarn start:dev`
 - Buka browser `http://localhost:3000`
 
+## Deployment
+
+- Ketikkan command `yarn build:deploy`
+- Pilih web hosting (misalnya: Heroku)
+- Atur konfigurasi tambahan (jika ada) sesuai web hosting Anda
+
 ## Struktur Folder
 
 Ini adalah struktur folder projek Komodo SSR 
@@ -16,6 +22,7 @@ Ini adalah struktur folder projek Komodo SSR
 ```
 -komodo-ssr
  |_config/
+ |   |_paths.js
  |   |_webpack.common.js
  |   |_dev/
  |   |   |_webpack.client.js
