@@ -9,17 +9,16 @@ import createStore from './reducers/store';
 const store = createStore(window.REDUX_DATA);
 
 const render = Component => (
-    Loadable.preloadReady().then(() => {
-        ReactDOM.hydrate(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <Component />
-                </BrowserRouter>
-            </Provider>,
-            document.getElementById('root')
-        )
-    })
+  Loadable.preloadReady().then(() => {
+    ReactDOM.hydrate(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Component />
+        </BrowserRouter>
+      </Provider>,
+      document.getElementById('root')
+    )
+  })
 )
 
 render(App)
-

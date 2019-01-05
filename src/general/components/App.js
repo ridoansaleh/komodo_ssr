@@ -8,10 +8,10 @@ setConfig({ logLevel: 'debug' })
 const App = () => (
   <Switch>
     {
-      routes.map(route => 
+      routes.map(route =>
         <Route
           key={route.path}
-          { ...route }
+          {...route}
         />
       )
     }

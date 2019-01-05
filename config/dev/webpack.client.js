@@ -10,7 +10,7 @@ const clientConfig = {
   name: 'client',
   devtool: 'inline-source-map',
   target: 'web',
-  context: paths.context,  
+  context: paths.context,
   entry: [
     './appClient.js',
     'webpack/hot/dev-server',

@@ -10,7 +10,7 @@ const paths = require('../paths');
 const clientConfig = {
   mode: 'production',
   name: 'client',
-  context: paths.context,  
+  context: paths.context,
   entry: './appClient.js',
   devtool: 'source-map',
   module: {

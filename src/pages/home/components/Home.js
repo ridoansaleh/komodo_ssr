@@ -8,11 +8,11 @@ class Home extends Component {
     return (
       <div>
         <div className={styles.wrapper}>
-            <p>Komodo SSR</p>
-            <img src={minion} alt='Icon' height='100' width='100' />
+          <p>Komodo SSR</p>
+          <img src={minion} alt='Icon' height='100' width='100' />
         </div>
         <p>
-            <Link to='about'>Lihat About</Link>
+          <Link to='about'>Lihat About</Link>
         </p>
       </div>
     );
