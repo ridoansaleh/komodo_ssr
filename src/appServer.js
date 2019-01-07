@@ -1,6 +1,7 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter, matchPath } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import { Provider } from "react-redux";
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
@@ -42,6 +43,8 @@ const render = (req, res) => {
       </Provider>
     );
 
+    const helmet = Helmet.renderStatic();
+
     const bundles = getBundles(stats, modules);
     const vendorBundle = paths.public + 'vendor.bundle.js';
     const appBundle = paths.public + 'main.js';
@@ -51,14 +54,16 @@ const render = (req, res) => {
 
     const indexHTML = `
       <!DOCTYPE html>
-      <html>
+      <html ${helmet.htmlAttributes.toString()}>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-          <title>Komodo SSR</title>
+          ${helmet.title.toString()}
+          ${helmet.meta.toString()}
+          ${helmet.link.toString()}
           ${appStyle}
         </head>          
-        <body>
+        <body ${helmet.bodyAttributes.toString()}>
           <div id="root">${AppComponent}</div>
           ${
             scripts.map(script => {

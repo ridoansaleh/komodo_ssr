@@ -1,5 +1,6 @@
-const webpack = require('webpack')
+const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const commonConfig = require('../webpack.common');
@@ -37,6 +38,13 @@ const clientConfig = {
   },
   plugins: [
     new WriteFilePlugin(),
+    new CleanWebpackPlugin(
+      ['build'],
+      {
+        root: paths.root,
+        verbose: true 
+      }
+    ),
     new webpack.HotModuleReplacementPlugin(),
     new ReactLoadablePlugin({
       filename: './build/react-loadable.json'

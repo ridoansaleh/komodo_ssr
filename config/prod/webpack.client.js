@@ -1,6 +1,7 @@
 const path = require('path');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
@@ -50,7 +51,14 @@ const clientConfig = {
         to: path.join(__dirname, '..', '..') + '/build/index.js',
         toType: 'file'
       }
-    ])
+    ]),
+    new CleanWebpackPlugin(
+      ['build'],
+      {
+        root: paths.root,
+        verbose: true 
+      }
+    )
   ],
   optimization: {
     splitChunks: {
