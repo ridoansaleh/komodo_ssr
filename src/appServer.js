@@ -78,8 +78,10 @@ const render = (req, res) => {
       });
       res.end();
     } else {
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(indexHTML);
+      const status = context.status === 404 ? 404 : 200;
+      res.writeHead(status, { "Content-Type": "text/html" });
+      res.write(indexHTML);
+      res.end();
     }
   });
 
